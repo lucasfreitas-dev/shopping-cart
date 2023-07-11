@@ -68,7 +68,7 @@ func TestCartService(t *testing.T) {
 
 		if assert.NoError(t, err) {
 			got := cart.TotalPrice
-			assert.Equal(t, want, got)
+			assert.True(t, got.Equal(want))
 		}
 
 	})
@@ -81,7 +81,7 @@ func TestCartService(t *testing.T) {
 
 		if assert.NoError(t, err) {
 			got := cart.TotalPrice
-			assert.Equal(t, want, got)
+			assert.True(t, got.Equal(want))
 		}
 
 	})
@@ -94,7 +94,7 @@ func TestCartService(t *testing.T) {
 
 		if assert.NoError(t, err) {
 			got := cart.TotalPrice
-			assert.Equal(t, want, got)
+			assert.True(t, got.Equal(want))
 		}
 
 	})
