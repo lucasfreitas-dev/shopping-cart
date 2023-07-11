@@ -103,7 +103,7 @@ func TestCartService(t *testing.T) {
 func mockCartTotalPrice() *domain.CartTotalPrice {
 	return &domain.CartTotalPrice{
 		Cart:       *mockCart(),
-		TotalPrice: decimal.NewNullDecimal(decimal.NewFromInt(1)),
+		TotalPrice: decimal.NewFromInt(1),
 	}
 }
 
@@ -114,7 +114,7 @@ func mockCart() *domain.Cart {
 			{
 				ID:    "1",
 				Name:  "T-shirt",
-				Price: decimal.NewNullDecimal(decimal.NewFromInt(1)),
+				Price: decimal.NewFromInt(1),
 			},
 		},
 	}
@@ -123,19 +123,19 @@ func mockCart() *domain.Cart {
 func mockTShirt() domain.Item {
 	return domain.Item{
 		Name:  "T-shirt",
-		Price: decimal.NewNullDecimal(decimal.NewFromFloat(12.99)),
+		Price: decimal.NewFromFloat(12.99),
 	}
 }
 func mockJeans() domain.Item {
 	return domain.Item{
 		Name:  "Jeans",
-		Price: decimal.NewNullDecimal(decimal.NewFromFloat(25.00)),
+		Price: decimal.NewFromFloat(25.00),
 	}
 }
 func mockDress() domain.Item {
 	return domain.Item{
 		Name:  "Dress",
-		Price: decimal.NewNullDecimal(decimal.NewFromFloat(20.65)),
+		Price: decimal.NewFromFloat(20.65),
 	}
 }
 
@@ -150,7 +150,7 @@ func mockCartSampleTestCase1() *domain.Cart {
 func mockCartTotalPriceampleTestCase1() *domain.CartTotalPrice {
 	return &domain.CartTotalPrice{
 		Cart:       *mockCartSampleTestCase1(),
-		TotalPrice: decimal.NewNullDecimal(decimal.NewFromFloat(25.98)),
+		TotalPrice: decimal.NewFromFloat(25.98),
 	}
 
 }
@@ -165,7 +165,7 @@ func mockCartSampleTestCase2() *domain.Cart {
 func mockCartTotalPriceampleTestCase2() *domain.CartTotalPrice {
 	return &domain.CartTotalPrice{
 		Cart:       *mockCartSampleTestCase2(),
-		TotalPrice: decimal.NewNullDecimal(decimal.NewFromFloat(62.99)),
+		TotalPrice: decimal.NewFromFloat(62.99),
 	}
 }
 
@@ -179,7 +179,7 @@ func mockCartSampleTestCase3() *domain.Cart {
 func mockCartTotalPriceampleTestCase3() *domain.CartTotalPrice {
 	return &domain.CartTotalPrice{
 		Cart:       *mockCartSampleTestCase3(),
-		TotalPrice: decimal.NewNullDecimal(decimal.NewFromFloat(91.30)),
+		TotalPrice: decimal.NewFromFloat(91.30),
 	}
 
 }

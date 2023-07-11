@@ -5,7 +5,7 @@ import "github.com/shopspring/decimal"
 type Item struct {
 	ID    string
 	Name  string
-	Price decimal.NullDecimal
+	Price decimal.Decimal
 }
 
 type Cart struct {
@@ -15,5 +15,5 @@ type Cart struct {
 
 type CartTotalPrice struct {
 	Cart
-	TotalPrice decimal.NullDecimal
+	TotalPrice decimal.Decimal
 }
