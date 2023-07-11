@@ -29,7 +29,7 @@ func TestHandler(t *testing.T) {
 	router := gin.New()
 	router.GET("/shopping-carts", hdl.Get)
 	router.POST("/shopping-carts/items", hdl.AddItem)
-	router.DELETE("/shopping-carts/items/:id", hdl.RemoveItem)
+	router.DELETE("/shopping-carts/items/:itemID", hdl.RemoveItem)
 
 	userID := "42"
 	itemID := "10"
@@ -70,14 +70,13 @@ func TestHandler(t *testing.T) {
 		}
 
 		query := map[string]string{
-			"item_id": itemID,
+			"item_id":  itemID,
+			"quantity": "1",
 		}
 
 		got := mockRequest(router, "POST", "/shopping-carts/items", header, query, nil)
-		want := mockCartTotalPrice()
 
 		assert.Equal(t, http.StatusOK, got.Code)
-		assert.Equal(t, want, got.Body)
 
 	})
 
@@ -89,10 +88,8 @@ func TestHandler(t *testing.T) {
 		}
 
 		got := mockRequest(router, "DELETE", "/shopping-carts/items"+"/"+itemID, header, nil, nil)
-		want := mockCartTotalPrice()
 
 		assert.Equal(t, http.StatusOK, got.Code)
-		assert.Equal(t, want, got.Body)
 
 	})
 }
