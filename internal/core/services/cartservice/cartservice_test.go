@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"shopping-cart/internal/core/domain"
-	"shopping-cart/internal/core/domain/services/cartservice"
 	mock_ports "shopping-cart/internal/core/ports/mock"
+	"shopping-cart/internal/core/services/cartservice"
 
 	"github.com/golang/mock/gomock"
 	"github.com/shopspring/decimal"
