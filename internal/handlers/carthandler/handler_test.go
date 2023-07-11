@@ -76,7 +76,7 @@ func TestHandler(t *testing.T) {
 
 		got := mockRequest(router, "POST", "/shopping-carts/items", header, query, nil)
 
-		assert.Equal(t, http.StatusOK, got.Code)
+		assert.Equal(t, http.StatusNoContent, got.Code)
 
 	})
 
@@ -89,7 +89,7 @@ func TestHandler(t *testing.T) {
 
 		got := mockRequest(router, "DELETE", "/shopping-carts/items"+"/"+itemID, header, nil, nil)
 
-		assert.Equal(t, http.StatusOK, got.Code)
+		assert.Equal(t, http.StatusNoContent, got.Code)
 
 	})
 }
