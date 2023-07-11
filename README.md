@@ -21,3 +21,8 @@ docker run -t -i --rm \
 		go clean --testcache && \
 		go test -cover ./...
 ```
+
+run
+```
+docker-compose up
+```
