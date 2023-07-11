@@ -14,12 +14,13 @@ import (
 
 func TestCartService(t *testing.T) {
 	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
 
 	mockRepo := mock_ports.NewMockCartRepository(ctrl)
 
 	cartService := cartservice.New(mockRepo)
 
-	cartID := "1"
+	cartID := "42"
 	itemID := "10"
 
 	t.Run("should add a item to the cart", func(t *testing.T) {
@@ -103,37 +104,36 @@ func TestCartService(t *testing.T) {
 func mockCartTotalPrice() *domain.CartTotalPrice {
 	return &domain.CartTotalPrice{
 		Cart:       *mockCart(),
-		TotalPrice: decimal.NewFromInt(1),
+		TotalPrice: decimal.NewFromFloat(12.99),
 	}
 }
 
 func mockCart() *domain.Cart {
 	return &domain.Cart{
-		UserID: "1",
+		UserID: "42",
 		Items: []domain.Item{
-			{
-				ID:    "1",
-				Name:  "T-shirt",
-				Price: decimal.NewFromInt(1),
-			},
+			mockTShirt(),
 		},
 	}
 }
 
 func mockTShirt() domain.Item {
 	return domain.Item{
+		ID:    "10",
 		Name:  "T-shirt",
 		Price: decimal.NewFromFloat(12.99),
 	}
 }
 func mockJeans() domain.Item {
 	return domain.Item{
+		ID:    "20",
 		Name:  "Jeans",
 		Price: decimal.NewFromFloat(25.00),
 	}
 }
 func mockDress() domain.Item {
 	return domain.Item{
+		ID:    "30",
 		Name:  "Dress",
 		Price: decimal.NewFromFloat(20.65),
 	}
@@ -141,7 +141,7 @@ func mockDress() domain.Item {
 
 func mockCartSampleTestCase1() *domain.Cart {
 	return &domain.Cart{
-		UserID: "1",
+		UserID: "42",
 		Items:  []domain.Item{mockTShirt(), mockTShirt(), mockTShirt()},
 	}
 
@@ -157,7 +157,7 @@ func mockCartTotalPriceampleTestCase1() *domain.CartTotalPrice {
 
 func mockCartSampleTestCase2() *domain.Cart {
 	return &domain.Cart{
-		UserID: "1",
+		UserID: "42",
 		Items:  []domain.Item{mockTShirt(), mockTShirt(), mockJeans(), mockJeans()},
 	}
 }
@@ -171,7 +171,7 @@ func mockCartTotalPriceampleTestCase2() *domain.CartTotalPrice {
 
 func mockCartSampleTestCase3() *domain.Cart {
 	return &domain.Cart{
-		UserID: "1",
+		UserID: "42",
 		Items:  []domain.Item{mockTShirt(), mockJeans(), mockJeans(), mockDress(), mockDress(), mockDress()},
 	}
 }
