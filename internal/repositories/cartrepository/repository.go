@@ -1,10 +1,11 @@
 package cartrepository
 
 import (
-	"encoding/json"
-	"errors"
 	"shopping-cart/internal/core/domain"
 	"shopping-cart/internal/core/domain/customerror"
+
+	"encoding/json"
+	"errors"
 )
 
 type repository struct {

@@ -1,16 +1,16 @@
 package carthandler_test
 
 import (
+	"shopping-cart/internal/core/domain"
+	"shopping-cart/internal/core/domain/customerror"
+	mock_ports "shopping-cart/internal/core/ports/mock"
+	"shopping-cart/internal/handlers/carthandler"
+
 	"bytes"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"shopping-cart/internal/core/domain"
-	"shopping-cart/internal/core/domain/customerror"
-	mock_ports "shopping-cart/internal/core/ports/mock"
-	"shopping-cart/internal/handlers/carthandler"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"

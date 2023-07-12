@@ -1,10 +1,11 @@
 package itemrepository
 
 import (
-	"encoding/json"
-	"errors"
 	"shopping-cart/internal/core/domain"
 	"shopping-cart/internal/core/domain/customerror"
+
+	"encoding/json"
+	"errors"
 
 	"github.com/shopspring/decimal"
 )

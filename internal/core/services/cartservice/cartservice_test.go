@@ -1,11 +1,11 @@
 package cartservice_test
 
 import (
-	"testing"
-
 	"shopping-cart/internal/core/domain"
 	mock_ports "shopping-cart/internal/core/ports/mock"
 	"shopping-cart/internal/core/services/cartservice"
+
+	"testing"
 
 	"github.com/golang/mock/gomock"
 	"github.com/shopspring/decimal"

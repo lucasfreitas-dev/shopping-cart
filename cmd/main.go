@@ -1,15 +1,14 @@
 package main
 
 import (
-	"fmt"
-
 	"shopping-cart/internal/config"
 	"shopping-cart/internal/core/services/cartservice"
 	"shopping-cart/internal/handlers/carthandler"
+	"shopping-cart/internal/infra/server"
 	"shopping-cart/internal/repositories/cartrepository"
 	"shopping-cart/internal/repositories/itemrepository"
 
-	"shopping-cart/internal/infra/server"
+	"fmt"
 )
 
 func main() {

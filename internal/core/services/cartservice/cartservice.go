@@ -3,6 +3,7 @@ package cartservice
 import (
 	"shopping-cart/internal/core/domain"
 	"shopping-cart/internal/core/ports"
+
 	"sort"
 
 	"github.com/shopspring/decimal"
