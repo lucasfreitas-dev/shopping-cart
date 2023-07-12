@@ -29,7 +29,7 @@ func (srv *server) NewRouter(carthandler *carthandler.HTTPHandler) {
 	srv.ginSrv.Use(gin.Recovery())
 	srv.ginSrv.GET("/shopping-carts", carthandler.Get)
 	srv.ginSrv.POST("/shopping-carts/items", carthandler.AddItem)
-	srv.ginSrv.DELETE("/shopping-carts/items/:itemID", carthandler.RemoveItem)
+	srv.ginSrv.DELETE("/shopping-carts/items/:item_id", carthandler.RemoveItem)
 
 }
 

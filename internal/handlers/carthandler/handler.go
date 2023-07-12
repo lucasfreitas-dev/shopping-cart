@@ -20,9 +20,13 @@ func New(cartService ports.CartService) *HTTPHandler {
 
 func (hdl *HTTPHandler) Get(ctx *gin.Context) {
 	userID := ctx.GetHeader("user_id")
+	if userID == "" {
+		ctx.JSON(400, gin.H{"message": "header user_id is required"})
+		return
+	}
 
 	cart, err := hdl.cartService.Get(userID)
-	if err != nil && err == customerror.ErrCartNotFound {
+	if err == customerror.ErrCartNotFound {
 		ctx.Status(404)
 		return
 	}
@@ -38,18 +42,34 @@ func (hdl *HTTPHandler) Get(ctx *gin.Context) {
 
 func (hdl *HTTPHandler) AddItem(ctx *gin.Context) {
 	userID := ctx.GetHeader("user_id")
-	itemID := ctx.Query("item_id")
-	quantity, err := strconv.Atoi(ctx.Query("quantity"))
-	if err != nil {
-		ctx.JSON(400, gin.H{"message": "quantity must be a int number"})
+	if userID == "" {
+		ctx.JSON(400, gin.H{"message": "header user_id is required"})
 		return
 	}
 
-	if quantity == 0 {
-		quantity = 1
+	itemID := ctx.Query("item_id")
+	if itemID == "" {
+		ctx.JSON(400, gin.H{"message": "item_id is required"})
+		return
 	}
 
-	err = hdl.cartService.AddItem(userID, itemID, quantity)
+	quantity := 1
+	quantityParam := ctx.Query("quantity")
+	if quantityParam != "" {
+		var err error
+		quantity, err = strconv.Atoi(quantityParam)
+		if err != nil {
+			ctx.JSON(400, gin.H{"message": "quantity must be a int number"})
+			return
+		}
+	}
+
+	err := hdl.cartService.AddItem(userID, itemID, quantity)
+	if err == customerror.ErrItemNotFound || err == customerror.ErrCartNotFound {
+		ctx.Status(404)
+		return
+	}
+
 	if err != nil {
 		ctx.Status(500)
 		return
@@ -61,9 +81,23 @@ func (hdl *HTTPHandler) AddItem(ctx *gin.Context) {
 
 func (hdl *HTTPHandler) RemoveItem(ctx *gin.Context) {
 	userID := ctx.GetHeader("user_id")
-	itemID := ctx.Param("itemID")
+	if userID == "" {
+		ctx.JSON(400, gin.H{"message": "header user_id is required"})
+		return
+	}
+
+	itemID := ctx.Param("item_id")
+	if itemID == "" {
+		ctx.JSON(400, gin.H{"message": "item_id is required"})
+		return
+	}
 
 	err := hdl.cartService.RemoveItem(userID, itemID)
+	if err == customerror.ErrItemNotFound || err == customerror.ErrCartNotFound {
+		ctx.Status(404)
+		return
+	}
+
 	if err != nil {
 		ctx.Status(500)
 		return
