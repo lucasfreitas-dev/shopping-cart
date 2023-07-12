@@ -1,6 +1,6 @@
-## Shopping cart service 🛒
+# Shopping cart service 🛒
 
-### Architecture
+## Architecture
 
 I choose the **hexagonal (ports and adapters)** for the architecture because It provides isolation between layers, keeping the domain and service core with no dependencies besides the business logic.
 
@@ -41,21 +41,21 @@ Carts(User)
 User ID: bba82f7a-caa1-4587-819b-6db46e14fc60 
 ```
 
-### Limitation
+## Limitation
 
-#### Context and Transaction
+### Context and Transaction
 For simplicity, the app has no shared transaction isolated context.
 
-#### Scalability 
+### Scalability 
 The app uses in-memory storage, so It's not able to horizontal scale out of the box.
 
-### Cmds
+## Commands
 
 Requirements:
 - Docker
 - Docker-compose
 
-#### Run tests in docker
+### Run tests in docker
 ```
 $ docker build --target test -t shopping-cart . &&
 docker run -t -i --rm \
@@ -66,29 +66,29 @@ docker run -t -i --rm \
 		go test -cover ./...
 ```
 
-#### Start app
+### Start app
 ```
 $ cp .env.sample .env && docker-compose up
 ```
 
-### Endpoints use cases
+## Endpoints use cases
 
 There's only one user cart pre-loaded, so all requests must include the header  --header 'user_id: bba82f7a-caa1-4587-819b-6db46e14fc60'
 
-#### Get shopping cart
+### Get shopping cart
 ```curl
 curl --location 'http://localhost:8080/shopping-carts' \
 --header 'user_id: bba82f7a-caa1-4587-819b-6db46e14fc60'
 ```
 
-#### Add item to shopping cart
+### Add item to shopping cart
 - quantity param is optional
 ```curl
 curl --location --request POST 'http://localhost:8080/shopping-carts/items?item_id=20&quantity=3' \
 --header 'user_id: bba82f7a-caa1-4587-819b-6db46e14fc60'
 ```
 
-#### Remove item to shopping cart
+### Remove item to shopping cart
 ```curl
 curl --location --request DELETE 'http://localhost:8080/shopping-carts/items/10' \
 --header 'user_id: bba82f7a-caa1-4587-819b-6db46e14fc60'
