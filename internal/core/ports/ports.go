@@ -3,8 +3,8 @@ package ports
 import "shopping-cart/internal/core/domain"
 
 type CartService interface {
-	AddItem(cartID, itemID string, quantity int) error
-	RemoveItem(cartID, itemID string) error
+	AddItem(userId, itemID string, quantity int) error
+	RemoveItem(userId, itemID string) error
 	Get(userID string) (*domain.CartTotalPrice, error)
 }
 
@@ -14,6 +14,6 @@ type ItemRepository interface {
 
 type CartRepository interface {
 	Get(userId string) (*domain.Cart, error)
-	AddItem(cartID, itemID string, quantity int) error
-	RemoveItem(cartID, itemID string) error
+	AddItem(userId string, item domain.Item, quantity int) error
+	RemoveItem(userId, itemID string) error
 }

@@ -31,7 +31,7 @@ func TestHandler(t *testing.T) {
 	router.POST("/shopping-carts/items", hdl.AddItem)
 	router.DELETE("/shopping-carts/items/:itemID", hdl.RemoveItem)
 
-	userID := "42"
+	userID := "c54cfa4b-fc3c-461b-9b03-4311f1c8fdd2"
 	itemID := "10"
 
 	t.Run("test get cart successful", func(t *testing.T) {
@@ -125,7 +125,7 @@ func mockCartTotalPrice() *domain.CartTotalPrice {
 
 func mockCart() *domain.Cart {
 	return &domain.Cart{
-		UserID: "42",
+		UserID: "c54cfa4b-fc3c-461b-9b03-4311f1c8fdd2",
 		Items: []domain.Item{
 			{
 				ID:    "10",

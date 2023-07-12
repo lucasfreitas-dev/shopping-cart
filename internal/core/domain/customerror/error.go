@@ -3,5 +3,6 @@ package customerror
 import "errors"
 
 var (
-	ErrCartNotFound = errors.New("shhopping cart not found")
+	ErrCartNotFound = errors.New("shopping cart not found")
+	ErrItemNotFound = errors.New("item not found")
 )

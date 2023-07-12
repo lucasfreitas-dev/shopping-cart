@@ -35,17 +35,17 @@ func (m *MockCartService) EXPECT() *MockCartServiceMockRecorder {
 }
 
 // AddItem mocks base method.
-func (m *MockCartService) AddItem(cartID, itemID string, quantity int) error {
+func (m *MockCartService) AddItem(userId, itemID string, quantity int) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddItem", cartID, itemID, quantity)
+	ret := m.ctrl.Call(m, "AddItem", userId, itemID, quantity)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // AddItem indicates an expected call of AddItem.
-func (mr *MockCartServiceMockRecorder) AddItem(cartID, itemID, quantity interface{}) *gomock.Call {
+func (mr *MockCartServiceMockRecorder) AddItem(userId, itemID, quantity interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddItem", reflect.TypeOf((*MockCartService)(nil).AddItem), cartID, itemID, quantity)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddItem", reflect.TypeOf((*MockCartService)(nil).AddItem), userId, itemID, quantity)
 }
 
 // Get mocks base method.
@@ -64,17 +64,17 @@ func (mr *MockCartServiceMockRecorder) Get(userID interface{}) *gomock.Call {
 }
 
 // RemoveItem mocks base method.
-func (m *MockCartService) RemoveItem(cartID, itemID string) error {
+func (m *MockCartService) RemoveItem(userId, itemID string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RemoveItem", cartID, itemID)
+	ret := m.ctrl.Call(m, "RemoveItem", userId, itemID)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // RemoveItem indicates an expected call of RemoveItem.
-func (mr *MockCartServiceMockRecorder) RemoveItem(cartID, itemID interface{}) *gomock.Call {
+func (mr *MockCartServiceMockRecorder) RemoveItem(userId, itemID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveItem", reflect.TypeOf((*MockCartService)(nil).RemoveItem), cartID, itemID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveItem", reflect.TypeOf((*MockCartService)(nil).RemoveItem), userId, itemID)
 }
 
 // MockItemRepository is a mock of ItemRepository interface.
@@ -139,17 +139,17 @@ func (m *MockCartRepository) EXPECT() *MockCartRepositoryMockRecorder {
 }
 
 // AddItem mocks base method.
-func (m *MockCartRepository) AddItem(cartID, itemID string, quantity int) error {
+func (m *MockCartRepository) AddItem(userId string, item domain.Item, quantity int) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddItem", cartID, itemID, quantity)
+	ret := m.ctrl.Call(m, "AddItem", userId, item, quantity)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // AddItem indicates an expected call of AddItem.
-func (mr *MockCartRepositoryMockRecorder) AddItem(cartID, itemID, quantity interface{}) *gomock.Call {
+func (mr *MockCartRepositoryMockRecorder) AddItem(userId, item, quantity interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddItem", reflect.TypeOf((*MockCartRepository)(nil).AddItem), cartID, itemID, quantity)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddItem", reflect.TypeOf((*MockCartRepository)(nil).AddItem), userId, item, quantity)
 }
 
 // Get mocks base method.
@@ -168,15 +168,15 @@ func (mr *MockCartRepositoryMockRecorder) Get(userId interface{}) *gomock.Call {
 }
 
 // RemoveItem mocks base method.
-func (m *MockCartRepository) RemoveItem(cartID, itemID string) error {
+func (m *MockCartRepository) RemoveItem(userId, itemID string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RemoveItem", cartID, itemID)
+	ret := m.ctrl.Call(m, "RemoveItem", userId, itemID)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // RemoveItem indicates an expected call of RemoveItem.
-func (mr *MockCartRepositoryMockRecorder) RemoveItem(cartID, itemID interface{}) *gomock.Call {
+func (mr *MockCartRepositoryMockRecorder) RemoveItem(userId, itemID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveItem", reflect.TypeOf((*MockCartRepository)(nil).RemoveItem), cartID, itemID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveItem", reflect.TypeOf((*MockCartRepository)(nil).RemoveItem), userId, itemID)
 }

@@ -16,44 +16,47 @@ func TestCartService(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockRepo := mock_ports.NewMockCartRepository(ctrl)
+	cartMockRepo := mock_ports.NewMockCartRepository(ctrl)
+	ItemMockRepo := mock_ports.NewMockItemRepository(ctrl)
 
-	cartService := cartservice.New(mockRepo)
+	cartService := cartservice.New(cartMockRepo, ItemMockRepo)
 
-	cartID := "42"
+	userID := "c54cfa4b-fc3c-461b-9b03-4311f1c8fdd2"
 	itemID := "10"
 
 	t.Run("should add a item to the cart", func(t *testing.T) {
-		mockRepo.EXPECT().AddItem(cartID, itemID, 1).Return(nil)
+		ItemMockRepo.EXPECT().Get(itemID).Return(mockTShirt(), nil)
+		cartMockRepo.EXPECT().AddItem(userID, *mockTShirt(), 1).Return(nil)
 
-		err := cartService.AddItem(cartID, itemID, 1)
+		err := cartService.AddItem(userID, itemID, 1)
 
 		assert.NoError(t, err)
 	})
 
 	t.Run("should add a item with quantity 1+ to the cart", func(t *testing.T) {
 		quantity := 3
-		mockRepo.EXPECT().AddItem(cartID, itemID, quantity).Return(nil)
+		ItemMockRepo.EXPECT().Get(itemID).Return(mockTShirt(), nil)
+		cartMockRepo.EXPECT().AddItem(userID, *mockTShirt(), quantity).Return(nil)
 
-		err := cartService.AddItem(cartID, itemID, quantity)
+		err := cartService.AddItem(userID, itemID, quantity)
 
 		assert.NoError(t, err)
 	})
 
 	t.Run("should remove a item from the cart", func(t *testing.T) {
-		mockRepo.EXPECT().RemoveItem(cartID, itemID).Return(nil)
+		cartMockRepo.EXPECT().RemoveItem(userID, itemID).Return(nil)
 
-		err := cartService.RemoveItem(cartID, itemID)
+		err := cartService.RemoveItem(userID, itemID)
 
 		assert.NoError(t, err)
 
 	})
 
 	t.Run("should return the cart with total price", func(t *testing.T) {
-		mockRepo.EXPECT().Get(cartID).Return(mockCart(), nil)
+		cartMockRepo.EXPECT().Get(userID).Return(mockCart(), nil)
 
 		want := mockCartTotalPrice()
-		got, err := cartService.Get(cartID)
+		got, err := cartService.Get(userID)
 
 		if assert.NoError(t, err) {
 			assert.Equal(t, want, got)
@@ -62,10 +65,10 @@ func TestCartService(t *testing.T) {
 	})
 
 	t.Run("should return the cart with total price, with the correct discount applied: sample test case 1", func(t *testing.T) {
-		mockRepo.EXPECT().Get(cartID).Return(mockCartSampleTestCase1(), nil)
+		cartMockRepo.EXPECT().Get(userID).Return(mockCartSampleTestCase1(), nil)
 
 		want := mockCartTotalPriceampleTestCase1().TotalPrice
-		cart, err := cartService.Get(cartID)
+		cart, err := cartService.Get(userID)
 
 		if assert.NoError(t, err) {
 			got := cart.TotalPrice
@@ -75,10 +78,10 @@ func TestCartService(t *testing.T) {
 	})
 
 	t.Run("should return the cart with total price, with the correct discount applied: sample test case 2", func(t *testing.T) {
-		mockRepo.EXPECT().Get(cartID).Return(mockCartSampleTestCase2(), nil)
+		cartMockRepo.EXPECT().Get(userID).Return(mockCartSampleTestCase2(), nil)
 
 		want := mockCartTotalPriceampleTestCase2().TotalPrice
-		cart, err := cartService.Get(cartID)
+		cart, err := cartService.Get(userID)
 
 		if assert.NoError(t, err) {
 			got := cart.TotalPrice
@@ -88,10 +91,10 @@ func TestCartService(t *testing.T) {
 	})
 
 	t.Run("should return the cart with total price, with the correct discount applied: sample test case 3", func(t *testing.T) {
-		mockRepo.EXPECT().Get(cartID).Return(mockCartSampleTestCase3(), nil)
+		cartMockRepo.EXPECT().Get(userID).Return(mockCartSampleTestCase3(), nil)
 
 		want := mockCartTotalPriceampleTestCase3().TotalPrice
-		cart, err := cartService.Get(cartID)
+		cart, err := cartService.Get(userID)
 
 		if assert.NoError(t, err) {
 			got := cart.TotalPrice
@@ -110,29 +113,29 @@ func mockCartTotalPrice() *domain.CartTotalPrice {
 
 func mockCart() *domain.Cart {
 	return &domain.Cart{
-		UserID: "42",
+		UserID: "c54cfa4b-fc3c-461b-9b03-4311f1c8fdd2",
 		Items: []domain.Item{
-			mockTShirt(),
+			*mockTShirt(),
 		},
 	}
 }
 
-func mockTShirt() domain.Item {
-	return domain.Item{
+func mockTShirt() *domain.Item {
+	return &domain.Item{
 		ID:    "10",
 		Name:  "T-shirt",
 		Price: decimal.NewFromFloat(12.99),
 	}
 }
-func mockJeans() domain.Item {
-	return domain.Item{
+func mockJeans() *domain.Item {
+	return &domain.Item{
 		ID:    "20",
 		Name:  "Jeans",
 		Price: decimal.NewFromFloat(25.00),
 	}
 }
-func mockDress() domain.Item {
-	return domain.Item{
+func mockDress() *domain.Item {
+	return &domain.Item{
 		ID:    "30",
 		Name:  "Dress",
 		Price: decimal.NewFromFloat(20.65),
@@ -141,8 +144,8 @@ func mockDress() domain.Item {
 
 func mockCartSampleTestCase1() *domain.Cart {
 	return &domain.Cart{
-		UserID: "42",
-		Items:  []domain.Item{mockTShirt(), mockTShirt(), mockTShirt()},
+		UserID: "c54cfa4b-fc3c-461b-9b03-4311f1c8fdd2",
+		Items:  []domain.Item{*mockTShirt(), *mockTShirt(), *mockTShirt()},
 	}
 
 }
@@ -157,8 +160,8 @@ func mockCartTotalPriceampleTestCase1() *domain.CartTotalPrice {
 
 func mockCartSampleTestCase2() *domain.Cart {
 	return &domain.Cart{
-		UserID: "42",
-		Items:  []domain.Item{mockTShirt(), mockTShirt(), mockJeans(), mockJeans()},
+		UserID: "c54cfa4b-fc3c-461b-9b03-4311f1c8fdd2",
+		Items:  []domain.Item{*mockTShirt(), *mockTShirt(), *mockJeans(), *mockJeans()},
 	}
 }
 
@@ -171,8 +174,8 @@ func mockCartTotalPriceampleTestCase2() *domain.CartTotalPrice {
 
 func mockCartSampleTestCase3() *domain.Cart {
 	return &domain.Cart{
-		UserID: "42",
-		Items:  []domain.Item{mockTShirt(), mockJeans(), mockJeans(), mockDress(), mockDress(), mockDress()},
+		UserID: "c54cfa4b-fc3c-461b-9b03-4311f1c8fdd2",
+		Items:  []domain.Item{*mockTShirt(), *mockJeans(), *mockJeans(), *mockDress(), *mockDress(), *mockDress()},
 	}
 }
 

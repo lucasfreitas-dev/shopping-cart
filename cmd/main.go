@@ -6,6 +6,9 @@ import (
 	"shopping-cart/internal/config"
 	"shopping-cart/internal/core/services/cartservice"
 	"shopping-cart/internal/handlers/carthandler"
+	"shopping-cart/internal/repositories/cartrepository"
+	"shopping-cart/internal/repositories/itemrepository"
+
 	"shopping-cart/internal/infra/server"
 )
 
@@ -16,7 +19,10 @@ func main() {
 		fmt.Printf("failed to load env configs, running default values. Error:%v", err)
 	}
 
-	cartService := cartservice.New(nil)
+	cartRepository := cartrepository.New()
+	itemrepository := itemrepository.New()
+
+	cartService := cartservice.New(cartRepository, itemrepository)
 
 	cartHandler := carthandler.New(cartService)
 

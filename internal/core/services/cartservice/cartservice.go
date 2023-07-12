@@ -10,16 +10,23 @@ import (
 
 type service struct {
 	cartRepository ports.CartRepository
+	itemRepository ports.ItemRepository
 }
 
-func New(cartRepository ports.CartRepository) *service {
+func New(cartRepository ports.CartRepository, itemRepository ports.ItemRepository) *service {
 	return &service{
 		cartRepository,
+		itemRepository,
 	}
 }
 
-func (srv *service) AddItem(cartID, itemID string, quantity int) error {
-	err := srv.cartRepository.AddItem(cartID, itemID, quantity)
+func (srv *service) AddItem(userID, itemID string, quantity int) error {
+	item, err := srv.itemRepository.Get(itemID)
+	if err != nil {
+		return err
+	}
+
+	err = srv.cartRepository.AddItem(userID, *item, quantity)
 	if err != nil {
 		return err
 	}
@@ -28,8 +35,8 @@ func (srv *service) AddItem(cartID, itemID string, quantity int) error {
 
 }
 
-func (srv *service) RemoveItem(cartID, itemID string) error {
-	err := srv.cartRepository.RemoveItem(cartID, itemID)
+func (srv *service) RemoveItem(userID, itemID string) error {
+	err := srv.cartRepository.RemoveItem(userID, itemID)
 	if err != nil {
 		return err
 	}
