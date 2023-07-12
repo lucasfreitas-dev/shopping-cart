@@ -68,7 +68,7 @@ docker run -t -i --rm \
 
 - Start app
 ```
-$ docker-compose up
+$ cp .env.sample .env && docker-compose up
 ```
 
 ### Endpoints use cases
