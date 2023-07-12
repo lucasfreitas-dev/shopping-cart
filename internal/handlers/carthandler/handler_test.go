@@ -29,7 +29,7 @@ func TestHandler(t *testing.T) {
 	router := gin.New()
 	router.GET("/shopping-carts", hdl.Get)
 	router.POST("/shopping-carts/items", hdl.AddItem)
-	router.DELETE("/shopping-carts/items/:itemID", hdl.RemoveItem)
+	router.DELETE("/shopping-carts/items/:item_id", hdl.RemoveItem)
 
 	userID := "c54cfa4b-fc3c-461b-9b03-4311f1c8fdd2"
 	itemID := "10"
