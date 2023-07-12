@@ -1,5 +1,4 @@
 ## Shopping cart service 🛒
-https://potent-afternoon-af0.notion.site/Shopping-cart-ac0c7820e1c34032a46eb98d8105db00
 
 ## Data seed
 
