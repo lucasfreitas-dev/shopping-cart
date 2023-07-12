@@ -82,8 +82,9 @@ curl --location 'http://localhost:8080/shopping-carts' \
 ```
 
 Add item to shopping cart
+- quantity param is optional
 ```curl
-curl --location --request POST 'http://localhost:8080/shopping-carts/items?item_id=20' \
+curl --location --request POST 'http://localhost:8080/shopping-carts/items?item_id=20&quantity=3' \
 --header 'user_id: bba82f7a-caa1-4587-819b-6db46e14fc60'
 ```
 
